@@ -1,2 +1,5 @@
-gstools==1.2.1
+gstools==1.3.1
 matplotlib
+cartopy==0.18.0
+geopandas==0.8.1
+wetterdienst==0.13.0
