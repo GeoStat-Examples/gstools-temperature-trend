@@ -49,7 +49,7 @@ fig.savefig(os.path.join("..", "results", "variogram.pdf"), dpi=300)
 print(model)
 
 ###############################################################################
-# As we see, we have a rather large correlation length of 600 km.
+# As we see, we have a rather large correlation length of ca. 600 km.
 #
 # Now we want to interpolate the data using Universal and Regression kriging
 # in order to compare them.
@@ -88,10 +88,9 @@ dk = gs.krige.Detrended(
 g_lat = np.arange(47, 56.1, 0.1)
 g_lon = np.arange(5, 16.1, 0.1)
 
-field1 = uk((g_lat, g_lon), mesh_type="structured", return_var=False)
+fld_uk = uk((g_lat, g_lon), mesh_type="structured", return_var=False)
 mean = uk((g_lat, g_lon), mesh_type="structured", only_mean=True)
-field2 = dk((g_lat, g_lon), mesh_type="structured", return_var=False)
-
+fld_dk = dk((g_lat, g_lon), mesh_type="structured", return_var=False)
 
 ###############################################################################
 # And that's it. Now let's have a look at the generated field and the input
@@ -100,8 +99,8 @@ field2 = dk((g_lat, g_lon), mesh_type="structured", return_var=False)
 levels = np.linspace(5, 23, 64)
 fig, ax = plt.subplots(1, 3, figsize=[10, 5], sharey=True)
 sca = ax[0].scatter(lon, lat, c=temp, vmin=5, vmax=23, cmap="coolwarm")
-co1 = ax[1].contourf(g_lon, g_lat, field1, levels, cmap="coolwarm")
-co2 = ax[2].contourf(g_lon, g_lat, field2, levels, cmap="coolwarm")
+co1 = ax[1].contourf(g_lon, g_lat, fld_uk, levels, cmap="coolwarm")
+co2 = ax[2].contourf(g_lon, g_lat, fld_dk, levels, cmap="coolwarm")
 
 [ax[i].plot(border[:, 0], border[:, 1], color="k") for i in range(3)]
 [ax[i].set_xlim([5, 16]) for i in range(3)]
@@ -117,14 +116,14 @@ fig.colorbar(co2, ax=ax, **fmt).set_label("T / °C")
 fig.savefig(os.path.join("..", "results", "kriging.pdf"), dpi=300)
 
 ###############################################################################
-# To get a better impression of the estimated north-south drift, we'll take
-# a look at a cross-section at a longitude of 10 degree:
+# To get a better impression of the estimated north-south drift and trend,
+# we'll take a look at a cross-section at a longitude of 10 degree:
 
 fig, ax = plt.subplots()
 label = "latitude-temperature scatter"
 reg_trend = trend(g_lat, g_lon)
 ax.scatter(lat, temp, c="silver", alpha=1.0, edgecolors="none", label=label)
-ax.plot(g_lat, field1[:, 50], label="Interpolated temperature at 10° lon")
+ax.plot(g_lat, fld_uk[:, 50], label="Universal Kriging: temperature (10° lon)")
 ax.plot(g_lat, mean[:, 50], label="North-South drift: Universal Kriging")
 ax.plot(g_lat, reg_trend, label="North-South trend: Regression Kriging")
 ax.set_ylim(7)

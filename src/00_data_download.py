@@ -15,7 +15,7 @@ borderline with `cartopy <https://github.com/SciTools/cartopy>`_.
 import os
 import numpy as np
 from cartopy.io import shapereader as shp_read  # version 0.18.0
-import geopandas as gp  # 0.8.1
+import geopandas as gp  # version 0.8.1
 from wetterdienst.dwd import observations as obs  # version 0.13.0
 
 
