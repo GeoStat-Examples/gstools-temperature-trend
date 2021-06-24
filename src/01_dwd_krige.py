@@ -101,6 +101,9 @@ fig, ax = plt.subplots(1, 3, figsize=[10, 5], sharey=True)
 sca = ax[0].scatter(lon, lat, c=temp, vmin=5, vmax=23, cmap="coolwarm")
 co1 = ax[1].contourf(g_lon, g_lat, fld_uk, levels, cmap="coolwarm")
 co2 = ax[2].contourf(g_lon, g_lat, fld_dk, levels, cmap="coolwarm")
+# pdf anti-alias
+ax[1].contour(g_lon, g_lat, fld_uk, levels, cmap="coolwarm", zorder=-10)
+ax[2].contour(g_lon, g_lat, fld_dk, levels, cmap="coolwarm", zorder=-10)
 
 [ax[i].plot(border[:, 0], border[:, 1], color="k") for i in range(3)]
 [ax[i].set_xlim([5, 16]) for i in range(3)]
