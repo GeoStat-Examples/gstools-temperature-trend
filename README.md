@@ -1,42 +1,43 @@
 [![GS-Frame](https://img.shields.io/badge/github-GeoStat_Framework-468a88?logo=github&style=flat)](https://github.com/GeoStat-Framework)
 [![Gitter](https://badges.gitter.im/GeoStat-Examples/community.svg)](https://gitter.im/GeoStat-Examples/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-# Template
+# Finding a temperature trend in DWD data: regression vs. universal kriging
 
-This is a template for an example repository.
+In this example we are going to interpolate temperature data from the
+german weather service (DWD) downlaoded through the python package
+[wetterdienst](https://github.com/earthobservations/wetterdienst).
 
-You can create a new example by simply clicking on "Use this template".
-
-The included example is showing the generation of a conditioned random field ensemble
-in 1D taken from [GSTools](https://geostat-framework.readthedocs.io/projects/gstools/en/stable/examples/06_conditioned_fields/00_condition_ensemble.html#sphx-glr-examples-06-conditioned-fields-00-condition-ensemble-py).
+In order to find a north-south trend in the data we will compare results from
+regression and universal kriging provided by GSTools.
 
 
 ## Structure
 
-Please try to organize your example in the given Structure
-- `data/` - here you should place your input data
-- `src/` - here you should place your python scripts
-- `results/` - here your computed results and plots should be stored
-- `README.md` - please describe your example in the readme, potentially showing results
-- `LICENSE` - the default license is MIT, you can use another one if wanted
+The workflow is organized by the following structure:
+- `data/` - downloaded temperature data and german border line
+- `src/`
+  - `00_data_download.py` - downloading routines
+  - `01_dwd_krige.py` - interpolation and comparison plot generation
+- `results/` - all produced results
 
 
 ## Python environment
 
-To make the example reproducible, it would be a good practice to provide one of
-the following files:
-- `requirements.txt` - requirements for [pip](https://pip.pypa.io/en/stable/user_guide/#requirements-files) to install all needed packages
-- `spec-file.txt` - specification file to create the original [conda environment](https://docs.conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#building-identical-conda-environments)
+Main Python dependencies are stored in `requirements.txt`:
 
+```
+gstools==1.3.1
+matplotlib
+cartopy==0.18.0
+geopandas==0.8.1
+wetterdienst==0.13.0
+```
 
-## Workflow
+You can install them with `pip` (potentially in a virtual environment):
 
-After finalizing your work, you should tag the repository with a version like `v1.0`.
-
-Then, a [Zenodo](https://zenodo.org/) release will be created, so you can cite the repository in you publication.
-
-Please keep your `master` branch in line with the latest release.
-For further development use the `develop` branch and update `master` with pull-requests.
+```bash
+pip install -r requirements.txt
+```
 
 
 ## Contact
@@ -46,4 +47,4 @@ You can contact us via <info@geostat-framework.org>.
 
 ## License
 
-MIT © 2020
+MIT © 2021
